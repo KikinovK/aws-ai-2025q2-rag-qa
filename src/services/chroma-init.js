@@ -2,6 +2,7 @@ import { ChromaClient } from "chromadb";
 import fs from "fs";
 
 import { searchByEmbedding } from "./search.js";
+import { log } from "../utils/logger.js";
 
 export async function chromaInit() {
 
@@ -18,16 +19,16 @@ export async function chromaInit() {
   const exists = existingCollections.some(c => c.name === collectionName);
 
   if (exists) {
-    console.log(`ℹ️ Collection "${collectionName}" already exists. Deleting...`);
+    log(`ℹ️ Collection "${collectionName}" already exists. Deleting...`);
     await client.deleteCollection({ name: collectionName });
-    console.log(`✅ Deleted.`);
+    log(`✅ Deleted.`);
   }
 
   const collection = await client.createCollection({
     name: collectionName,
     embeddingFunction: null,
  });
-  console.log(`✅ Collection "${collectionName}" created.`);
+  log(`✅ Collection "${collectionName}" created.`);
 
 
   const embeddings = JSON.parse(fs.readFileSync("embeddings/embeddings.json", "utf8"));
@@ -43,12 +44,12 @@ export async function chromaInit() {
     metadatas,
   });
 
-  console.log("✅ Embeddings added to ChromaDB");
+  log("✅ Embeddings added to ChromaDB");
 
 
   const queryEmbedding = vectors[0];
 
   const results = await searchByEmbedding(queryEmbedding, collection, 5);
 
-  console.log("Search results:", results);
+  log("Search results:", results);
 }

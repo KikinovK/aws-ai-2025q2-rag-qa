@@ -1,6 +1,7 @@
 import fetch from "node-fetch";
 import dotenv from "dotenv";
 import process from "process";
+import { log } from "../utils/logger.js";
 
 dotenv.config();
 
@@ -19,11 +20,11 @@ const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
 });
 
   const data = await res.json();
-  console.log('answer', data);
+  log('answer', data);
 
   try {
-    console.log('answer:', data.choices[0].message.content);
+    log('answer:', data.choices[0].message.content);
   } catch (error) {
     console.error('Error:', error);
-    console.log('answer', data);
+    log('answer', data);
   }

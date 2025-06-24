@@ -4,6 +4,7 @@ import { encode } from "gpt-3-encoder";
 import dotenv from "dotenv";
 import * as inference from "@huggingface/inference";
 import process from "process";
+import { log } from "../utils/logger.js";
 
 dotenv.config();
 
@@ -81,7 +82,7 @@ export async function embed(text) {
 
 export async function runEmbedding()  {
   const chunks = loadChunksFromDocuments();
-  console.log(`Embedding ${chunks.length} chunks...`);
+  log(`Embedding ${chunks.length} chunks...`);
 
   const out = [];
 
@@ -94,12 +95,12 @@ export async function runEmbedding()  {
         text: c.original,
         embedding: vector
       });
-      console.log(`✅ Embedded [${i + 1}/${chunks.length}]`);
+      log(`✅ Embedded [${i + 1}/${chunks.length}]`);
     } catch (e) {
       console.error(`❌ Failed embedding chunk ${c.id}  error: ${e.message}`);
     }
   }
 
   fs.writeFileSync("embeddings/embeddings.json", JSON.stringify(out, null, 2));
-  console.log("✅ Saved embeddings to embeddings.json");
+  log("✅ Saved embeddings to embeddings.json");
 };

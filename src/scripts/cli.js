@@ -2,6 +2,7 @@ import readline from "readline";
 import process from "process";
 import { ChromaClient } from "chromadb";
 import { askRAG } from "../services/rag.js";
+import { log } from "../utils/logger.js";
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -12,28 +13,32 @@ const rl = readline.createInterface({
 const client = new ChromaClient({ host: "localhost", port: 8000 });
 const collection = await client.getCollection({ name: "art_collection" });
 
-console.log("💬 Welcome to Museum Chat CLI (RAG-powered)\nType your question or 'exit' to quit.");
+
+log("----------start----------", true);
+log("💬 Welcome to Museum Chat CLI (RAG-powered)\nType your question or 'exit' to quit.");
 rl.prompt();
+log("🤖 Ask something: ", true);
 
 rl.on("line", async (line) => {
   const question = line.trim();
   if (!question) return rl.prompt();
+  log(question, true)
   if (question.toLowerCase() === "exit") return rl.close();
 
   try {
-    console.log("⏳ Thinking...");
+    log("⏳ Thinking...");
     const { answer, sources } = await askRAG(question, collection);
 
-    console.log(`\n✅ Answer:\n${answer}\n`);
+    log(`\n✅ Answer:\n${answer}\n`);
 
     if (sources.length > 0) {
-      console.log("📄 Based on documents:");
+      log("📄 Based on documents:");
       sources.forEach(({ id, snippet }, idx) => {
-        console.log(`\n🗂️ ${idx + 1}. ID: ${id}`);
-        console.log(`🔍 Snippet:\n${snippet}`);
+        log(`\n🗂️ ${idx + 1}. ID: ${id}`);
+        log(`🔍 Snippet:\n${snippet}`);
       });
     } else {
-      console.log("⚠️ No relevant context found.");
+      log("⚠️ No relevant context found.");
     }
 
   } catch (error) {
@@ -41,7 +46,9 @@ rl.on("line", async (line) => {
   }
 
   rl.prompt();
+  log("🤖 Ask something: ", true);
 }).on("close", () => {
-  console.log("👋 Goodbye!");
+  log("👋 Goodbye!");
+  log("----------end----------", true);
   process.exit(0);
 });

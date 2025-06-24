@@ -4,3 +4,5 @@ node_modules/
 embeddings/
 data/
 chroma-data/
+
+log.txt
