@@ -3,7 +3,7 @@ import fs from "fs";
 
 import { searchByEmbedding } from "./search.js";
 
-async function main() {
+export async function chromaInit() {
 
   const collectionName = "art_collection";
 
@@ -49,5 +49,3 @@ async function main() {
 
   console.log("Search results:", results);
 }
-
-main();

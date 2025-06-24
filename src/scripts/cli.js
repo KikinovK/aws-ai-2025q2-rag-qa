@@ -1,5 +1,6 @@
 import readline from "readline";
-import { askLLM } from "./llm.js";
+import process from "process";
+import { askLLM } from "../services/llm.js";
 
 const rl = readline.createInterface({
   input: process.stdin,

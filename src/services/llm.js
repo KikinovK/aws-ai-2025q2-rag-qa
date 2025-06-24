@@ -1,4 +1,6 @@
 import dotenv from "dotenv";
+import process from "process";
+
 dotenv.config();
 
 export async function askLLM(question, model = "meta-llama/llama-4-scout-17b-16e-instruct") {

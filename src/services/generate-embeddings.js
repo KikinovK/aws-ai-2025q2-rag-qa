@@ -3,6 +3,7 @@ import path from "path";
 import { encode } from "gpt-3-encoder";
 import dotenv from "dotenv";
 import * as inference from "@huggingface/inference";
+import process from "process";
 
 dotenv.config();
 
@@ -47,8 +48,8 @@ function loadChunksFromDocuments(dataDir = "./data") {
 
         if (i + MAX_TOKENS >= tokenIds.length) break;
       }
-    } catch (e) {
-      console.warn(`Skipping ${file} due to parse error`);
+    } catch (error) {
+      console.warn(`Skipping ${file} due to parse error: ${error.message}`);
     }
   }
 
@@ -76,7 +77,7 @@ export async function embed(text) {
   return result;
 }
 
-async function runEmbedding()  {
+export async function runEmbedding()  {
   const chunks = loadChunksFromDocuments();
   console.log(`Embedding ${chunks.length} chunks...`);
 
@@ -100,5 +101,3 @@ async function runEmbedding()  {
   fs.writeFileSync("embeddings/embeddings.json", JSON.stringify(out, null, 2));
   console.log("✅ Saved embeddings to embeddings.json");
 };
-
-// runEmbedding();

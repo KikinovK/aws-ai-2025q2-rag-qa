@@ -1,5 +1,7 @@
 import fetch from "node-fetch";
 import dotenv from "dotenv";
+import process from "process";
+
 dotenv.config();
 
 const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
