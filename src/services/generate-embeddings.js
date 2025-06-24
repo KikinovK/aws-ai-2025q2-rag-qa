@@ -7,7 +7,9 @@ import process from "process";
 
 dotenv.config();
 
-const hf = new inference.HfInference(process.env.HF_TOKEN);
+const hf = new inference.HfInference(process.env.HF_TOKEN, {
+  inferenceEndpoint: "https://api-inference.huggingface.co",
+});
 const MODEL = "sentence-transformers/all-MiniLM-L6-v2";
 const MAX_TOKENS = 800;
 

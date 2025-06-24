@@ -7,13 +7,6 @@ export async function searchByEmbedding(queryEmbedding, collection, n = 5) {
     include: ["metadatas", "distances"]
   });
 
-  console.log("🔎 Found relevant documents:");
-  results.ids[0].forEach((id, idx) => {
-    console.log(`• ${id}`);
-    console.log(`  Distance: ${results.distances[0][idx]}`);
-    console.log(`  Snippet: ${results.metadatas[0][idx].text.slice(0, 200)}...`);
-  });
-
   return results;
 }
 

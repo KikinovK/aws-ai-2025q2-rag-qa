@@ -22,16 +22,18 @@ rl.on("line", async (line) => {
 
   try {
     console.log("⏳ Thinking...");
-    const { answer, context,ids } = await askRAG(question, collection);
+    const { answer, sources } = await askRAG(question, collection);
+
     console.log(`\n✅ Answer:\n${answer}\n`);
-    console.log(`📄 Based on documents: ${ids.join(", ")}`);
-    if (context.length > 0) {
-      console.log("\n🔍 Context snippets:");
-      context.forEach((snippet, idx) => {
-        console.log(`\nSnippet ${idx + 1}:\n${snippet}`);
+
+    if (sources.length > 0) {
+      console.log("📄 Based on documents:");
+      sources.forEach(({ id, snippet }, idx) => {
+        console.log(`\n🗂️ ${idx + 1}. ID: ${id}`);
+        console.log(`🔍 Snippet:\n${snippet}`);
       });
     } else {
-      console.log("No relevant context found.");
+      console.log("⚠️ No relevant context found.");
     }
 
   } catch (error) {

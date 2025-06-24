@@ -23,7 +23,10 @@ export async function chromaInit() {
     console.log(`✅ Deleted.`);
   }
 
-  const collection = await client.createCollection({ name: collectionName });
+  const collection = await client.createCollection({
+    name: collectionName,
+    embeddingFunction: null,
+ });
   console.log(`✅ Collection "${collectionName}" created.`);
 
 
