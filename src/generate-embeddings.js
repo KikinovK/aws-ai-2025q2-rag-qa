@@ -68,7 +68,7 @@ function buildText(json) {
   ].filter(Boolean).join("\n");
 }
 
-async function embed(text) {
+export async function embed(text) {
   const result = await hf.featureExtraction({
     model: MODEL,
     inputs: text
@@ -76,7 +76,7 @@ async function embed(text) {
   return result;
 }
 
-(async () => {
+async function runEmbedding()  {
   const chunks = loadChunksFromDocuments();
   console.log(`Embedding ${chunks.length} chunks...`);
 
@@ -99,4 +99,6 @@ async function embed(text) {
 
   fs.writeFileSync("embeddings/embeddings.json", JSON.stringify(out, null, 2));
   console.log("✅ Saved embeddings to embeddings.json");
-})();
+};
+
+// runEmbedding();
