@@ -1,7 +1,15 @@
 import dotenv from "dotenv";
 import process from "process";
+import path from "path";
+import { fileURLToPath } from "url";
 
-dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+
+dotenv.config({ path: path.resolve(__dirname, "..", "..", ".env") });
+console.log('process.env.OPENAI_API_BASE', process.env.OPENAI_API_BASE);
 
 export async function askLLM(question, model = "meta-llama/llama-4-scout-17b-16e-instruct") {
   const res = await fetch(`${process.env.OPENAI_API_BASE}/chat/completions`, {

@@ -5,8 +5,15 @@ import dotenv from "dotenv";
 import * as inference from "@huggingface/inference";
 import process from "process";
 import { log } from "../utils/logger.js";
+import { fileURLToPath } from "url";
 
-dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+
+dotenv.config({ path: path.resolve(__dirname, "..", "..", ".env") });
+console.log('process.env.HF_TOKEN', process.env.HF_TOKEN);
 
 const hf = new inference.HfInference(process.env.HF_TOKEN, {
   inferenceEndpoint: "https://api-inference.huggingface.co",

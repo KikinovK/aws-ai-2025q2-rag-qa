@@ -1,10 +1,14 @@
 import express from "express";
 import cors from "cors";
-import router from "./routes.js";
+import router from "./api/routes.js";
 import swaggerUi from "swagger-ui-express";
 import fs from "fs";
-import path from "path";
 import process from "process";
+import { fileURLToPath } from "url";
+import { dirname, resolve } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -14,11 +18,14 @@ app.use(express.json());
 app.use("/api", router);
 
 
-const swaggerDoc = JSON.parse(fs.readFileSync(path.join("docs", "swagger.json"), "utf8"));
+const swaggerPath = resolve(__dirname, "..", "docs", "swagger.json");
+const swaggerDoc = JSON.parse(fs.readFileSync(swaggerPath, "utf8"));
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
 
-app.use(express.static("src/public"));
+const publicPath = resolve(__dirname, "..", "src", "public");
+
+app.use(express.static(publicPath));
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
