@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Museum Chat</title>
+</head>
+<body>
+  <h1>Museum Q&A</h1>
+  <form id="ask-form">
+    <input type="text" id="question" placeholder="Ask your question..." required />
+    <button type="submit">Ask</button>
+  </form>
+  <pre id="result"></pre>
+
+  <script>
+    document.getElementById("ask-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const question = document.getElementById("question").value;
+      const res = await fetch("/api/ask", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question })
+      });
+      const data = await res.json();
+      document.getElementById("result").textContent = JSON.stringify(data, null, 2);
+    });
+  </script>
+</body>
+</html>

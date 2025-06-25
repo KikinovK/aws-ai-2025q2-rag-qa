@@ -1,17 +1,14 @@
 import readline from "readline";
 import process from "process";
-import { ChromaClient } from "chromadb";
 import { askRAG } from "../services/rag.js";
 import { log } from "../utils/logger.js";
+import { collection } from "../vector-store.js";
 
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
   prompt: "🤖 Ask something: "
 });
-
-const client = new ChromaClient({ host: "localhost", port: 8000 });
-const collection = await client.getCollection({ name: "art_collection" });
 
 
 log("----------start----------", true);
