@@ -4,7 +4,7 @@ const App = () => {
 
 
   return (
-    <div className="h-screen bg-white text-gray-900">
+    <div className="h-screen bg-white text-gray-900 overflow-hidden">
       <Chat />
     </div>
   )

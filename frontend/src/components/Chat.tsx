@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type Source = { id: string; snippet: string };
 
@@ -9,6 +9,13 @@ const Chat = () => {
   const [history, setHistory] = useState<
   { question: string; answer: string; sources: Source[] }[]
 >([]);
+
+  const bottomRef = useRef(null);
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [history]);
+
 
   const askQuestion = async () => {
     if (!question.trim()) return;
@@ -47,7 +54,7 @@ const Chat = () => {
   return (
     <div className="flex flex-col h-full max-w-3xl mx-auto p-6 space-y-6">
       <h1 className="text-2xl font-bold">🎨 Museum Chat</h1>
-      <div className="mt-10 overflow-scroll-y grow">
+      <div className="mt-10 overflow-y-scroll grow">
         {history.length > 0 && (
           <ul className="space-y-6">
             {history.map((entry, idx) => (
@@ -70,6 +77,7 @@ const Chat = () => {
             ))}
           </ul>
         )}
+        <div ref={bottomRef} />
       </div>
 
       <div className="flex gap-2">
@@ -92,30 +100,6 @@ const Chat = () => {
       {loading && <p className="text-gray-500">⏳ Thinking...</p>}
       {error && <p className="text-red-600">❌ {error}</p>}
 
-      {/* {answer && (
-        <div className="bg-gray-100 p-4 rounded">
-          <h2 className="font-semibold text-lg mb-2">✅ Answer</h2>
-          <p>{answer}</p>
-        </div>
-      )}
-
-      {sources.length > 0 && (
-        <div>
-          <h2 className="font-semibold text-lg mt-4 mb-2">📄 Sources</h2>
-          <ul className="list-disc list-inside space-y-2">
-            {sources.map((src, idx) => (
-              <li key={src.id}>
-                <p className="text-sm text-gray-700">
-                  <strong>{idx + 1}. ID:</strong> {src.id}
-                </p>
-                <p className="text-sm text-gray-600 italic">
-                  {src.snippet}...
-                </p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )} */}
     </div>
   );
 }
