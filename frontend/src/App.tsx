@@ -1,10 +1,11 @@
+import Chat from "./components/Chat"
 
 const App = () => {
 
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <h1>App</h1>
+    <div className="h-screen bg-white text-gray-900">
+      <Chat />
     </div>
   )
 }

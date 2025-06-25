@@ -13,7 +13,6 @@ const __dirname = path.dirname(__filename);
 
 
 dotenv.config({ path: path.resolve(__dirname, "..", "..", ".env") });
-console.log('process.env.HF_TOKEN', process.env.HF_TOKEN);
 
 const hf = new inference.HfInference(process.env.HF_TOKEN, {
   inferenceEndpoint: "https://api-inference.huggingface.co",
