@@ -1,5 +1,5 @@
 # 🖼️ Museum Q&A Chatbot (RAG)
-An interactive chatbot with Retrieval-Augmented Generation, allowing you to ask questions about a museum collection and receive answers with source references.
+## Backend
 Based on Node.js, ChromaDB, Hugging Face, and LLM.
 
 ## 📦 Project Structure
@@ -10,8 +10,7 @@ src/
 ├── scripts/                # CLI and script runners
 ├── services/               # Search, generation, and storage logic
 ├── api/                    # REST API
-├── utils/                  # Logging, tokenization, etc.
-└── index.html              # Simple HTML page for testing
+└── utils/                  # Logging, tokenization, etc.
 
 ## ✅ Requirements
 Node.js >= 20
@@ -22,8 +21,7 @@ Hugging Face Token with access to sentence-transformers/all-MiniLM-L6-v2
 ## ⚙️ Installation and Launch
 
 ```sh
-git clone https://github.com/your-user/rag-museum-qa.git
-cd rag-museum-qa
+cd backend
 npm install
 ```
 
@@ -71,7 +69,7 @@ node src/scripts/cli.js
 ## 🌐 Running the REST API
 
 ```sh
-node src/api/server.js
+node src/server.js
 ```
 
 ### Swagger documentation will be available at:
