@@ -5,11 +5,17 @@ Based on Node.js, ChromaDB, Hugging Face, and LLM.
 ## 📦 Project Structure
 
 src/
+
 ├── data/                   # JSON files with museum objects
+
 ├── embeddings/             # File with vector embeddings
+
 ├── scripts/                # CLI and script runners
+
 ├── services/               # Search, generation, and storage logic
+
 ├── api/                    # REST API
+
 └── utils/                  # Logging, tokenization, etc.
 
 ## ✅ Requirements
