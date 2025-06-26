@@ -14,7 +14,7 @@ npm install
 ```
 
 ```sh
-npm run dev:backend    # or: node src/server.js
+npm run dev:backend    # or: node backend/src/server.js
 npm run dev:frontend   # or: cd frontend && npm run dev
 ```
 
